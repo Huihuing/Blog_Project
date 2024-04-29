@@ -1,4 +1,4 @@
-package com.example.Blog_Project.category;
+package com.example.Blog_Project.Blog.category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
