@@ -15,11 +15,11 @@ public class LogController {
     private final LogRepository logRepository;
     private final LogService logService;
 
-//    @PostMapping("/")
-//    public String write(@PathVariable("categoryId") Long categoryId) {
-//        Category category = categoryRepository.findById(categoryId).orElseThrow();
-//
-//
-//        return "redirect:/";
-//    }
+    @PostMapping("/")
+    public String write(@PathVariable("categoryId") Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow();
+
+
+        return "redirect:/";
+    }
 }

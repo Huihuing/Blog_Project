@@ -14,8 +14,13 @@ public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(length = 250)
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
+
     private LocalDateTime presentTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

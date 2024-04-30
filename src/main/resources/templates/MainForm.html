@@ -13,18 +13,18 @@
 <body>
 <div th:replace="~{BackGround :: BackGroundF}"></div>
 <nav th:replace="~{NavBar :: NavBarF}"></nav>
-<!--<div class="bg-red-300 w-1/5 h-96">-->
-<!--</div>-->
 
-<!--<div>-->
-<!--    <input type="hidden" name="id" th:value="${targetLog.id}">-->
-<!--</div>-->
-<!--<div>-->
-<!--    <input type="text" name="title" th:value="${targetLog.title}">-->
-<!--</div>-->
-<!--<div>-->
-<!--    <textarea name="content" cols="30" rows="10" th:text="${targetLog.content}"></textarea>-->
-<!--</div>-->
+<div class="flex justify-center pt-48">
+    <div class="bg-indigo-200 w-[75%] h-[400px] pt-4">
+        <!-- 내용 -->
+        <div class="flex justify-center">
+        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+        </div>
+        <div class="flex justify-center">
+        <textarea placeholder="Bio" class="textarea textarea-bordered textarea-lg w-full max-w-xs" ></textarea>
+        </div>
+    </div>
+</div>
 
 <!--<div class="bg-green-300 w-[60%]">-->
 <!--    <form th:action="@{|/books/${targetNotebook.id}/notes/${targetNote.id}/update|}" method="post" id="updateForm">-->
