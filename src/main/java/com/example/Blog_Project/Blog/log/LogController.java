@@ -20,7 +20,10 @@ public class LogController {
     private final LogService logService;
 
     @GetMapping("/write")
-    public String logWrite(LogForm logForm) {return "log_form";}
+    public String showWriteForm() {
+        // 등록 폼을 보여주는 코드
+        return "log_write_form"; // 예시로 "write_form"을 리턴하도록 가정
+    }
 
     @PostMapping("/write")
     public String writeLog(@RequestParam("title") String title, @RequestParam("content") String content) {
