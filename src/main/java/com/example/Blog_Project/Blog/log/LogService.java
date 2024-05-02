@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 public class LogService {
     private final LogRepository logRepository;
 
-    public Log saveDefault(Category category) {
-        Log log = new Log();
-        log.setTitle("asdf");
-        log.setContent("");
-        log.setPresentTime(LocalDateTime.now());
-        return logRepository.save(log);
-    }
+//    public Log saveDefault() {
+//        Log log = new Log();
+//        log.setTitle("asdf");
+//        log.setContent("");
+//        log.setPresentTime(LocalDateTime.now());
+//        return logRepository.save(log);
+//    }
 }

@@ -14,17 +14,29 @@
 <div th:replace="~{BackGround :: BackGroundF}"></div>
 <nav th:replace="~{NavBar :: NavBarF}"></nav>
 
-<div class="flex justify-center pt-48">
+<div>
+    <a th:href="@{/write}" class="btn btn-outline btn-primary">게시글 등록하기</a>
+</div>
+
+<form class="flex justify-center pt-48" method="post" action="/write">
     <div class="bg-indigo-200 w-[75%] h-[400px] pt-4">
         <!-- 내용 -->
-        <div class="flex justify-center">
-        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+        <h5 class="">게시물 작성</h5>
+        <div>
+            <input type="hidden" name="id">
         </div>
         <div class="flex justify-center">
-        <textarea placeholder="Bio" class="textarea textarea-bordered textarea-lg w-full max-w-xs" ></textarea>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" placeholder="제목을 작성해주세요" class="input input-bordered w-full max-w-xs" required>
         </div>
+        <div class="flex justify-center">
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" cols="30" rows="10" placeholder="내용을 작성해주세요" class="textarea textarea-bordered textarea-lg w-full max-w-xs" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline btn-primary">등록하기</button>
     </div>
-</div>
+</form>
+
 
 <!--<div class="bg-green-300 w-[60%]">-->
 <!--    <form th:action="@{|/books/${targetNotebook.id}/notes/${targetNote.id}/update|}" method="post" id="updateForm">-->

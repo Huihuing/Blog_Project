@@ -4,6 +4,7 @@ import com.example.Blog_Project.Blog.category.CategoryRepository;
 import com.example.Blog_Project.Blog.log.LogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,7 +16,7 @@ public class MainController {
     private final LogRepository logRepository;
 
     @RequestMapping("/")
-    public String Main() {
+    public String Main(Model model) {
 
         return "MainForm";
     }
