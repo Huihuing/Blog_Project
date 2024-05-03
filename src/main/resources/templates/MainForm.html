@@ -9,31 +9,18 @@
     <!-- Background.css start -->
     <link rel="stylesheet" type="text/css" th:href="@{/BackGround.css}">
     <!-- Background.css end -->
+    <!-- Fixed_Navbar.css start -->
     <link rel="stylesheet" type="text/css" th:href="@{/Fixed_Navbar.css}">
+    <!-- Fixed_Navbar.css end -->
 </head>
 <body>
 <!-- Main Start -->
 <div th:replace="~{BackGround :: BackGroundF}"></div>
 <nav th:replace="~{NavBar :: NavBarF}"></nav>
 <!-- Main End -->
+<!-- Content Start -->
 <th:block layout:fragment="content"></th:block>
-
-<!--<form action="" class="flex justify-center pt-24">-->
-<!--<div class="bg-indigo-200 w-[75%] h-auto max-h-[400px] pt-4 overflow-scroll">-->
-<!--    <h1>메인 페이지</h1>-->
-<!--<ul>-->
-<!--    <li th:each="log : ${logs}" >-->
-<!--        <div>-->
-<!--            제목-->
-<!--            <h2 th:text="${log.title}"></h2>-->
-<!--        </div>-->
-<!--        <div>내용-->
-<!--            <p th:text="${log.content}"></p>-->
-<!--        </div>-->
-<!--    </li>-->
-<!--</ul>-->
-<!--    </div>-->
-<!--</form>-->
+<!-- Content End -->
 
 </body>
 </html>
