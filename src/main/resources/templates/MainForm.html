@@ -9,6 +9,7 @@
     <!-- Background.css start -->
     <link rel="stylesheet" type="text/css" th:href="@{/BackGround.css}">
     <!-- Background.css end -->
+    <link rel="stylesheet" type="text/css" th:href="@{/Fixed_Navbar.css}">
 </head>
 <body>
 <!-- Main Start -->
@@ -17,23 +18,22 @@
 <!-- Main End -->
 <th:block layout:fragment="content"></th:block>
 
-<form action="" class="flex justify-center pt-24">
-<div class="bg-indigo-200 w-[75%] h-auto max-h-[400px] pt-4 overflow-scroll">
-    <h1>메인 페이지</h1>
-<ul>
-    <li th:each="log : ${logs}" >
-        <div>
-            제목
-            <h2 th:text="${log.title}"></h2>
-        </div>
-        <div>내용
-            <p th:text="${log.content}"></p>
-        </div>
-    </li>
-</ul>
-    </div>
-</div>
-</form>
+<!--<form action="" class="flex justify-center pt-24">-->
+<!--<div class="bg-indigo-200 w-[75%] h-auto max-h-[400px] pt-4 overflow-scroll">-->
+<!--    <h1>메인 페이지</h1>-->
+<!--<ul>-->
+<!--    <li th:each="log : ${logs}" >-->
+<!--        <div>-->
+<!--            제목-->
+<!--            <h2 th:text="${log.title}"></h2>-->
+<!--        </div>-->
+<!--        <div>내용-->
+<!--            <p th:text="${log.content}"></p>-->
+<!--        </div>-->
+<!--    </li>-->
+<!--</ul>-->
+<!--    </div>-->
+<!--</form>-->
 
 </body>
 </html>
