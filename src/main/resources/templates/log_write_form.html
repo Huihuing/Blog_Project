@@ -6,7 +6,7 @@
 </head>
 <body>
 <form layout:fragment="content" class="flex justify-center pt-48" method="post" action="/write" >
-    <div class="bg-indigo-200 w-[75%] h-[400px] pt-4 overflow-scroll">
+    <div class="bg-indigo-200 w-[90%] h-[700px] pt-4 overflow-scroll">
         <!-- 내용 -->
         <h5 class="">게시물 작성</h5>
         <div>
@@ -16,12 +16,24 @@
             <label for="title">제목:</label>
             <input type="text" id="title" name="title" placeholder="제목을 작성해주세요" class="input input-bordered w-full max-w-xs" required>
         </div>
-        <div class="flex justify-center">
-            <label for="content">내용:</label>
-            <textarea id="content" name="content" cols="30" rows="10" placeholder="내용을 작성해주세요" class="textarea textarea-bordered textarea-lg w-full max-w-xs" required></textarea>
-        </div>
+        <input type="hidden" name="content" id="editor-body">
+        <div class="flex justify-center" id="editor"></div>
+<!--            <label for="content">내용:</label>-->
+<!--            <textarea id="content" name="content" cols="30" rows="10" placeholder="내용을 작성해주세요" class="textarea textarea-bordered textarea-lg w-full max-w-xs" required></textarea>-->
+<!--        </div>-->
         <button type="submit" class="btn btn-outline btn-primary">등록하기</button>
     </div>
+    <script th:inline="javascript">
+        const Editor = toastui.Editor;
+        const editor = new Editor({
+      el: document.querySelector('#editor'),
+      height: '500px',
+      initialEditType: 'markdown',
+      previewStyle: 'vertical'
+    });
+
+    editor.getMarkdown();
+    </script>
 </form>
 </body>
 </html>
