@@ -16,13 +16,6 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
 
-    @Column(length = 250)
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
-    private String content;
-
-    @OneToMany(mappedBy = "category")
-    List<Log> logList = new ArrayList<>();
 }

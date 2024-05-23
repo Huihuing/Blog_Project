@@ -18,21 +18,20 @@
         </div>
         <input type="hidden" name="content" id="editor-body">
         <div class="flex justify-center" id="editor"></div>
-<!--            <label for="content">내용:</label>-->
-<!--            <textarea id="content" name="content" cols="30" rows="10" placeholder="내용을 작성해주세요" class="textarea textarea-bordered textarea-lg w-full max-w-xs" required></textarea>-->
-<!--        </div>-->
         <button type="submit" class="btn btn-outline btn-primary">등록하기</button>
     </div>
     <script th:inline="javascript">
         const Editor = toastui.Editor;
         const editor = new Editor({
-      el: document.querySelector('#editor'),
-      height: '500px',
-      initialEditType: 'markdown',
-      previewStyle: 'vertical'
-    });
+            el: document.querySelector('#editor'),
+            height: '500px',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical'
+        });
 
-    editor.getMarkdown();
+        document.querySelector('form').addEventListener('submit', function () {
+            document.querySelector('#editor-body').value = editor.getMarkdown();
+        });
     </script>
 </form>
 </body>
