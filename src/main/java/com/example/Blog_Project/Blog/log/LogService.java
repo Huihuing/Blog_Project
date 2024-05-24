@@ -20,7 +20,16 @@ public class LogService {
         return logRepository.save(log);
     }
 
+
     public List<Log> getAllLogs() {
         return logRepository.findAll();
+    }
+
+    public void save(Log log) {logRepository.save(log);}
+
+    public void delete(Long id) {logRepository.deleteById(id);}
+
+    public Log getLog(Long id) {
+        return logRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid log Id:" + id));
     }
 }

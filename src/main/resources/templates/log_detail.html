@@ -6,12 +6,23 @@
 </head>
 <body>
 
-<form action="" class="flex justify-center pt-24" layout:fragment="content">
-    <div class="bg-indigo-200 w-[75%] h-auto max-h-[400px] pt-4 overflow-scroll">
-        <h1 th:text="${log.title}">제목</h1>
-        <p th:text="${log.content}">내용</p>
-        <p th:text="${log.createTime}">작성일</p>
+<div class="container mx-auto pt-24" layout:fragment="content">
+    <div class="bg-indigo-200 w-[75%] mx-auto p-4 rounded-lg">
+        <form method="post" th:action="@{/logs/update/{id}(id=${log.id})}">
+            <div class="mb-4">
+                <h1 class="text-2xl font-bold">제목</h1>
+                <input type="text" name="title" class="input input-bordered w-full max-w-xs" th:value="${log.title}" required />
+            </div>
+            <div class="mb-4">
+                <h2 class="text-xl font-semibold">내용</h2>
+                <textarea name="content" class="textarea textarea-bordered w-full" rows="10" required th:text="${log.content}"></textarea>
+            </div>
+            <div class="flex items-center">
+                <button type="submit" class="btn btn-outline btn-primary mr-2">수정</button>
+                <a th:href="@{/logs/delete/{id}(id=${log.id})}" class="btn btn-outline btn-danger">삭제</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 </body>
 </html>

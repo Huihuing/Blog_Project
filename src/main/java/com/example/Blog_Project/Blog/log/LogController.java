@@ -5,10 +5,7 @@ import com.example.Blog_Project.Blog.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,9 +48,23 @@ public class LogController {
         return "redirect:/"; // 저장 후 메인 페이지로 리다이렉트
     }
 
-
     @GetMapping("/detail")
     public String detail() {
         return "log_detail";
+    }
+
+    @PostMapping("/logs/update/{id}")
+    public String updateLog(@PathVariable("id") Long id, @ModelAttribute LogForm logForm) {
+        Log log = logService.getLog(id);
+        log.setTitle(logForm.getTitle());
+        log.setContent(logForm.getContent());
+        logService.save(log);
+        return "redirect:/logs";
+    }
+
+    @GetMapping("/logs/delete/{id}")
+    public String deleteLog(@PathVariable("id") Long id) {
+        logService.delete(id);
+        return "redirect:/logs";
     }
 }
