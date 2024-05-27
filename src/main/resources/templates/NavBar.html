@@ -7,64 +7,71 @@
 <body>
 
 <nav th:fragment="NavBarF" class="NavbarFix">
-<div class="navbar bg-base-100">
+    <div class="navbar bg-base-100">
 
-    <div class="navbar-start">
-        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-            <!-- Page content here -->
-            <label for="my-drawer-4" class="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg></label>
-        </div>
-        <div class="drawer-side">
-            <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                <li><a>1번 메뉴</a></li>
-                <li><a>2번 메뉴</a></li>
-                <li><a>3번 메뉴</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="navbar-center">
-        <a class="btn btn-ghost text-xl" href="/">Blog_Test</a>
-    </div>
-
-    <div class="navbar-end">
-        <button class="btn btn-ghost btn-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-        </button>
-
-        <div>
-            <a th:href="@{/write}" class="btn btn-outline btn-primary">게시글 등록하기</a>
-        </div>
-
-        <button class="btn btn-ghost btn-circle">
-            <div class="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+        <div class="navbar-start">
+            <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+            <div class="drawer-content">
+                <!-- Page content here -->
+                <label for="my-drawer-4" class="btn btn-ghost btn-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                </label>
             </div>
-        </button>
+            <div class="drawer-side">
+                <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+                <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                    <li><a>1번 메뉴</a></li>
+                    <li><a>2번 메뉴</a></li>
+                    <li><a>3번 메뉴</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navbar-center">
+            <a class="btn btn-ghost text-xl" href="/">Blog_Test</a>
+        </div>
+
+        <div class="navbar-end">
+            <form id="searchForm" action="/logs/search" method="get">
+                <input type="text" id="searchInput" name="query" class="input input-bordered" placeholder="검색어를 입력하세요">
+                <button class="btn btn-ghost btn-circle" id="searchButton" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </form>
+
+            <div>
+                <a th:href="@{/write}" class="btn btn-outline btn-primary">게시글 등록하기</a>
+            </div>
+
+            <button class="btn btn-ghost btn-circle">
+                <div class="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+            </button>
+        </div>
+
     </div>
-
-</div>
-
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchButton = document.getElementById('searchButton');
+        searchButton.addEventListener('click', function() {
+            const query = document.getElementById('searchInput').value;
+            console.log(`Searching for: ${query}`); // 디버깅용 로그
+
+            if (query) {
+                document.getElementById('searchForm').submit(); // 폼 제출
+            } else {
+                console.log('No query entered'); // 디버깅용 로그
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
-
-
-<!--<div class="drawer drawer-end">-->
-<!--    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />-->
-<!--    <div class="drawer-content">-->
-<!--        &lt;!&ndash; Page content here &ndash;&gt;-->
-<!--        <label for="my-drawer-4" class="drawer-button btn btn-primary">Open drawer</label>-->
-<!--    </div>-->
-<!--    <div class="drawer-side">-->
-<!--        <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>-->
-<!--        <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">-->
-<!--            &lt;!&ndash; Sidebar content here &ndash;&gt;-->
-<!--            <li><a>Sidebar Item 1</a></li>-->
-<!--            <li><a>Sidebar Item 2</a></li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</div>-->
