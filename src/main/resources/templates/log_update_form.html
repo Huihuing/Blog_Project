@@ -2,50 +2,47 @@
 <html lang="en" layout:decorate="~{MainForm}">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Log</title>
+    <title>log_update</title>
 </head>
 <body>
-<form layout:fragment="content" class="flex justify-center pt-24 text-gray-600 body-font" method="post">
-    <div class="bg-indigo-200 w-[75%] h-auto max-h-[400px] pt-4 overflow-scroll">
-        <div class="w-full mx-auto flex flex-col items-start">
-            <form id="logUpdateForm" th:action="@{/logs/{id}/edit(id=${log.id})}" method="post">
-                <div class="mb-4">
-                    <label for="title" class="leading-7 text-sm text-gray-600">제목</label>
-                    <input type="text" id="title" name="title" th:value="${log.title}" class="input input-bordered w-full">
-                </div>
-                <div class="mb-4">
-                    <label for="content" class="leading-7 text-sm text-gray-600">내용</label>
-                    <div id="editor"></div>
-                    <textarea id="content" name="content" th:text="${log.content}" style="display:none;"></textarea>
-                </div>
-                <div class="flex items-center">
-                    <button type="submit" class="btn btn-primary">수정</button>
-                    <a th:href="@{/logs/{id}(id=${log.id})}" class="btn btn-secondary ml-4">취소</a>
-                </div>
-            </form>
-        </div>
+
+<div class="container mx-auto pt-24" layout:fragment="content">
+    <div class="bg-indigo-200 w-[75%] mx-auto p-4 rounded-lg">
+        <form method="post" th:action="@{/logs/update/{id}(id=${log.id})}">
+            <div class="mb-4">
+                <h1 class="text-2xl font-bold">제목</h1>
+                <input type="text" name="title" class="input input-bordered w-full max-w-xs" th:value="${log.title}" required />
+            </div>
+            <div class="mb-4">
+                <h2 class="text-xl font-semibold">내용</h2>
+                <input type="hidden" name="content" id="editor-body" />
+                <div id="editor"></div>
+            </div>
+            <div class="flex items-center">
+                <button id="updating" type="submit" class="btn btn-outline btn-primary mr-2">수정</button>
+                <a th:href="@{/logs/delete/{id}(id=${log.id})}" class="btn btn-outline btn-danger">삭제</a>
+            </div>
+        </form>
     </div>
-</form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const initialValue = document.getElementById('content').value;
-
-        // Initialize toastui Editor
-        const editor = new toastui.Editor({
-            el: document.querySelector('#editor'),
-            height: '400px',
-            initialEditType: 'wysiwyg',
-            previewStyle: 'vertical',
-            initialValue: initialValue,
-        });
-
-        // Form submission handler
-        document.getElementById('logUpdateForm').addEventListener('submit', function() {
-            document.getElementById('content').value = editor.getMarkdown();
-        });
+<script th:inline="javascript">
+    const Editor = toastui.Editor;
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '500px',
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        initialValue: [[${log.content}]]
     });
+
+        document.querySelector('#updating').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelector('#editor-body').value = editor.getMarkdown();
+        event.target.form.submit();
+        });
 </script>
+
+</div>
 
 </body>
 </html>
