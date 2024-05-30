@@ -13,9 +13,9 @@
                 <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                     <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog">
                     <div class="p-6">
-                        <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">CATEGORY</h2>
+                        <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1" th:text="${log.category != null ? log.category.name : 'No Category'}">CATEGORY</h2>
                         <h1 class="title-font text-lg font-medium text-gray-900 mb-3" th:text="${log.title}">Blog Title</h1>
-                        <p class="leading-relaxed mb-3" th:text="${log.content}">Blog Content</p>
+                        <p class="leading-relaxed mb-3" th:text="${#strings.abbreviate(log.content, 100)}">Blog Content</p>
                         <p class="text-white-600 text-sm" th:text="${log.presentTime}">CreateDate</p>
                         <div class="flex items-center flex-wrap ">
                             <a th:href="@{/logs/{id}(id=${log.id})}" class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">자세히 보기

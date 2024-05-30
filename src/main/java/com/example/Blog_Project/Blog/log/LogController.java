@@ -36,19 +36,21 @@ public class LogController {
     }
 
     @GetMapping("/write")
-    public String showWriteForm() {
-        // 등록 폼을 보여주는 코드
+    public String showWriteForm(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
         return "log_write_form";
     }
 
     @PostMapping("/write")
-    public String LogWrite(@RequestParam("title") String title, @RequestParam("content") String content) {
+    public String logWrite(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("categoryId") Long categoryId) {
         Log log = new Log();
         log.setTitle(title);
         log.setContent(content);
         log.setPresentTime(LocalDateTime.now());
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + categoryId));
+        log.setCategory(category);
         logRepository.save(log);
-        return "redirect:/"; // 저장 후 메인 페이지로 리다이렉트
+        return "redirect:/";
     }
 
     @GetMapping("/detail")
@@ -60,14 +62,17 @@ public class LogController {
     public String updateLog(@PathVariable("id") Long id, Model model) {
         Log log = logService.getLog(id);
         model.addAttribute("log", log);
+        model.addAttribute("categories", categoryRepository.findAll());
         return "log_update_form";
     }
 
     @PostMapping("/logs/update/{id}")
-    public String updateLog(@PathVariable("id") Long id, @ModelAttribute LogForm logForm) {
+    public String updateLog(@PathVariable("id") Long id, @ModelAttribute LogForm logForm, @RequestParam("categoryId") Long categoryId) {
         Log log = logService.getLog(id);
         log.setTitle(logForm.getTitle());
         log.setContent(logForm.getContent());
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + categoryId));
+        log.setCategory(category);
         logService.save(log);
         return "redirect:/";
     }
