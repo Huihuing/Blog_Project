@@ -10,8 +10,16 @@
     <div class="bg-indigo-200 w-[75%] mx-auto p-4 rounded-lg">
         <h1 class="text-2xl font-bold" th:text="${log.title}">제목</h1>
         <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1" th:text="${log.category != null ? log.category.name : 'No Category'}">CATEGORY</h2>
+        <div class="separator">
+            <div id="separator-6e548b2b7e" class="cmp-separator">
+                <hr class="cmp-separator__horizontal-rule">
+            </div>
+        </div>
         <p th:text="${log.content}">내용</p>
         <p class="text-white-600 text-sm" th:text="${log.presentTime}">CreateDate</p>
+        <p>
+            <span th:each="tag : ${log.tags}" th:text="${tag.name}" class="tag"></span>
+        </p>
         <a th:href="@{/logs/update/{id}(id=${log.id})}" class="btn btn-outline btn-primary">수정</a>
         <a th:href="@{/logs/delete/{id}(id=${log.id})}" class="btn btn-outline btn-danger">삭제</a>
     </div>

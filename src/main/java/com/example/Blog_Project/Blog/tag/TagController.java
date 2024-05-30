@@ -16,15 +16,15 @@ public class TagController {
         return "tag_list";
     }
 
-    @GetMapping("/tags/create")
-    public String showCreateForm(@RequestParam("redirectUrl") String redirectUrl, Model model) {
-        model.addAttribute("redirectUrl", redirectUrl);
-        return "tag_create_form";
-    }
-
     @PostMapping("/tags/create")
     public String createTag(@RequestParam("name") String name, @RequestParam("redirectUrl") String redirectUrl) {
         tagService.createTag(name);
         return "redirect:" + redirectUrl;
+    }
+
+    @GetMapping("/tags/delete")
+    public String deleteTag(@RequestParam("id") Long id) {
+        tagService.deleteTag(id);
+        return "redirect:/tags";
     }
 }

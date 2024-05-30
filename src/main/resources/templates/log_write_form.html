@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{MainForm}">
+<html lang="en" layout:decorate="~{mainForm}">
 <head>
     <meta charset="UTF-8">
     <title>log_write</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <style>
+        .tag-container {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+        .selected-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .selected-tag {
+            background-color: #e5e7eb;
+            padding: 5px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+    <script src="/tagScript.js"></script> <!-- 외부 스크립트 파일 참조 -->
 </head>
 <body>
 <form layout:fragment="content" class="flex justify-center pt-24" method="post" action="/write">
@@ -19,7 +36,7 @@
                 <input type="text" id="title" name="title" placeholder="제목을 작성해주세요" class="input input-bordered w-full max-w-xs" required>
             </div>
             <input type="hidden" name="content" id="editor-body">
-            <div id="editor"></div>
+            <div id="editor" data-initial-value=""></div>
         </div>
         <div class="w-[30%] p-4">
             <h3>카테고리 설정</h3>
@@ -28,73 +45,27 @@
                     <option value="" disabled selected>카테고리를 선택하세요</option>
                     <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                 </select>
+                <a href="/categories/create?redirectUrl=/write" class="btn btn-outline btn-secondary mt-2">카테고리 생성</a>
             </div>
-            <button type="button" class="btn btn-outline btn-secondary mt-2" onclick="openTagModal()">태그 생성</button>
-            <!-- 태그 모달 -->
-            <div id="tagModal" class="modal hidden">
-                <div class="modal-box">
-                    <h3 class="font-bold text-lg">태그 생성</h3>
-                    <form method="post" action="/tags/create" onsubmit="submitTagForm(event)">
-                        <div class="mb-4">
-                            <input type="text" name="name" placeholder="태그 이름" class="input input-bordered w-full" required>
-                            <input type="hidden" name="redirectUrl" value="/write">
-                        </div>
-                        <div class="modal-action">
-                            <button type="submit" class="btn btn-primary">생성</button>
-                            <button type="button" class="btn" onclick="closeTagModal()">취소</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- 모달 끝 -->
-            <!-- 추후 태그 기능을 위한 공간 -->
             <div class="mt-4">
                 <h3>태그 설정</h3>
-                <!-- 태그 설정 기능 추가 예정 -->
+                <div class="tag-container">
+                    <div th:each="tag : ${tags}" class="form-control flex justify-between">
+                        <label class="label cursor-pointer">
+                            <span class="label-text" th:text="${tag.name}"></span>
+                            <input type="checkbox" name="tagIds" th:value="${tag.id}" class="checkbox" onchange="toggleTag(this)" />
+                        </label>
+                    </div>
+                </div>
+                <div class="flex items-center mt-2">
+                    <button type="button" class="btn btn-outline btn-secondary" onclick="document.getElementById('tagModal').showModal()">태그 생성</button>
+                    <button type="button" class="btn btn-outline btn-danger ml-2" onclick="clearSelectedTags()">태그 삭제</button>
+                </div>
+                <div class="selected-tag-container" id="selected-tags"></div>
             </div>
         </div>
         <button id="regbtn" type="submit" class="btn btn-outline btn-primary mt-4">등록하기</button>
     </div>
-
-    <script th:inline="javascript">
-        const Editor = toastui.Editor;
-        const editor = new Editor({
-            el: document.querySelector('#editor'),
-            height: '500px',
-            initialEditType: 'wysiwyg',
-            previewStyle: 'vertical',
-            initialValue: ''
-        });
-
-        document.querySelector('#regbtn').addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector('#editor-body').value = editor.getMarkdown();
-            e.target.form.submit();
-        });
-
-        function openTagModal() {
-            document.getElementById('tagModal').classList.remove('hidden');
-        }
-
-        function closeTagModal() {
-            document.getElementById('tagModal').classList.add('hidden');
-        }
-
-        function submitTagForm(event) {
-            event.preventDefault();
-            const form = event.target;
-            const data = new FormData(form);
-            fetch(form.action, {
-                method: 'POST',
-                body: data
-            }).then(response => {
-                if (response.ok) {
-                    closeTagModal();
-                    location.reload(); // 페이지를 새로 고쳐서 새로운 태그를 로드
-                }
-            });
-        }
-    </script>
 </form>
 </body>
 </html>

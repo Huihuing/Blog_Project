@@ -1,12 +1,15 @@
 package com.example.Blog_Project.Blog.log;
 
 import com.example.Blog_Project.Blog.category.Category;
+import com.example.Blog_Project.Blog.tag.Tag;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,4 +35,12 @@ public class Log {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "log_tags",
+            joinColumns = @JoinColumn(name = "log_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 }

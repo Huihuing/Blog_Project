@@ -38,4 +38,10 @@ public class CategoryController {
         categoryRepository.save(category);
         return "redirect:" + redirectUrl;
     }
+
+    @GetMapping("/categories/delete")
+    public String deleteCategory(@RequestParam("id") Long id) {
+        categoryRepository.deleteById(id);
+        return "redirect:/";
+    }
 }

@@ -1,11 +1,12 @@
 package com.example.Blog_Project.Blog.tag;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.Blog_Project.Blog.log.Log;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,4 +17,6 @@ public class Tag {
     private Long id;
     private String name;
 
+    @ManyToMany(mappedBy = "tags")
+    private Set<Log> logs = new HashSet<>();
 }

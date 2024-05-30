@@ -1,0 +1,15 @@
+<dialog th:fragment="tagModal" id="tagModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">태그 생성</h3>
+        <form id="tagForm" method="post" action="/tags/create">
+            <div class="mb-4">
+                <input type="text" name="name" placeholder="태그 이름" class="input input-bordered w-full" required>
+                <input type="hidden" name="redirectUrl" value="/write">
+            </div>
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">생성</button>
+                <button type="button" class="btn" onclick="document.getElementById('tagModal').close()">취소</button>
+            </div>
+        </form>
+    </div>
+</dialog>

@@ -14,8 +14,8 @@ public class LogService {
 
     public Log saveDefault() {
         Log log = new Log();
-        log.setTitle("asdf");
-        log.setContent("");
+        log.setTitle("Default Title");
+        log.setContent("Default Content");
         log.setPresentTime(LocalDateTime.now());
         return logRepository.save(log);
     }

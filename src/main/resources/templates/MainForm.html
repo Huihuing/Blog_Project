@@ -23,5 +23,56 @@
 <!-- Content Start -->
 <th:block layout:fragment="content"></th:block>
 <!-- Content End -->
+
+<!-- 태그 생성 모달 -->
+<dialog th:replace="fragments/modal::tagModal"></dialog>
+
+<!-- ToastUI Editor 초기화 스크립트 -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (document.querySelector('#editor')) {
+            const Editor = toastui.Editor;
+            const editor = new Editor({
+                el: document.querySelector('#editor'),
+                height: '500px',
+                initialEditType: 'wysiwyg',
+                previewStyle: 'vertical',
+                initialValue: document.querySelector('#editor').getAttribute('data-initial-value') || ''
+            });
+
+            document.querySelector('#regbtn')?.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector('#editor-body').value = editor.getMarkdown();
+                e.target.form.submit();
+            });
+
+            document.querySelector('#updating')?.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector('#editor-body').value = editor.getMarkdown();
+                e.target.form.submit();
+            });
+        }
+
+        document.getElementById('tagForm')?.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: data
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('tagModal').close();
+                    location.reload(); // 페이지를 새로 고쳐서 새로운 태그를 로드
+                } else {
+                    alert('태그 생성에 실패했습니다.');
+                }
+            }).catch(error => {
+                console.error('태그 생성 중 오류 발생:', error);
+                alert('태그 생성 중 오류가 발생했습니다.');
+            });
+        });
+    });
+</script>
 </body>
 </html>
